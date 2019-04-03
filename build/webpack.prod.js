@@ -2,6 +2,7 @@ const baseConfig = require('./webpack.base.js');
 const merge = require('webpack-merge');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const prodConfig = {
   mode: 'production', // development production
   devtool: 'cheap-module-source-map', // dev cheap-module-eval-source-map build cheap-module-source-map
@@ -31,6 +32,11 @@ const prodConfig = {
   },
   optimization: {
     minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: true // set to true if you want JS source maps
+      }),
       new OptimizeCSSAssetsPlugin({})
     ]
   },

@@ -4,16 +4,19 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const AddAs = require('add-asset-html-webpack-plugin');
 const webpack = require('webpack');
 //https://github.com/webpack/analyse 打包分析工具
+// IgnorePlugin 可以优化moment的语言包
+//happypack模块 多进程打包
 module.exports = { 
   entry: {
     main: './src/index.js',
   },
-  resolve: { 
+  resolve: { // 解析 第三方包
     extensions: ['.js', '.jsx'], // 处理后缀名文件
     alias: {
       img: path.resolve(__dirname, '../src/img') // 取别名方便调用
     }
   },
+  noParse: /jquery/, // 不去解析jquery中的依赖
   module: {
     rules: [{
       test: /\.(jpg|png|gif)$/,
@@ -33,8 +36,8 @@ module.exports = {
     {
       rules: [
         { 
-          test: /\.jsx?$/, 
-          // exclude: /node_modules/,
+          test: /\.jsx?$/, // js或者jsx
+          // exclude: /node_modules/, //排除
           include: path.resolve(__dirname, '../src'),
           use: [
             {
@@ -47,15 +50,19 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'src/index.html'
+      template: 'src/index.html',
+      // minify: {
+      //   removeAttributeQuotes: true, // 去掉html双引号
+      //   collapseWhitespace: true // 压缩成一行
+      // }
     }),
     new CleanWebpackPlugin(),
     new AddAs({
       filepath: path.resolve(__dirname, '../dll/vendors.dll.js')
     }),
-    new webpack.DllReferencePlugin({ // 如果vendors.dll.json里有react和react-dom, 不用再node_modules里在找
-      manifest: path.resolve(__dirname, '../dll/vendors.manifest.json')
-    })
+    // new webpack.DllReferencePlugin({ // 如果vendors.dll.json里有react和react-dom, 不用再node_modules里在找
+    //   manifest: path.resolve(__dirname, '../dll/vendors.manifest.json')
+    // })
     // new webpack.ProvidePlugin({ // 全局jquere
     //   $: 'jquery'
     // })

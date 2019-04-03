@@ -2,3 +2,4 @@ node_modules
 dist
 dll
 package-lock.json
+stats.json
