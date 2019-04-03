@@ -13,7 +13,7 @@
     "server": "node server.js",
     "build:dll": "webpack --config ./build/webpack.dll.js"
   },
-  "author": "",
+  "author": "wuzhongwei",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.3.4",
@@ -45,8 +45,8 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
-    "@babel/runtime": "^7.3.4",
-    "@babel/runtime-corejs2": "^7.3.4",
+    "@babel/runtime": "^7.4.2",
+    "@babel/runtime-corejs2": "^7.4.2",
     "jquery": "^3.3.1",
     "lodash": "^4.17.11",
     "react": "^16.8.5",

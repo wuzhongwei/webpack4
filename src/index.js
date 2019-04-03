@@ -1,10 +1,20 @@
 
-import react from 'react';
-import reactDom from 'react-dom';
+// import "@babel/polyfill";
+import React, { Component } from 'react';
+import { render } from 'react-dom';
 
-console.log(react,reactDom,22222222222222)
-const arr = [2,3,4];
-arr.map(() => {
-  console.log(333)
-})
-const ddd = new Set(['aa','vv']);
+class HelloMessage extends Component {
+  componentDidMount(){
+    this.add();
+  }
+  add(){
+    const a = new Set(['aa','bb']);
+    console.log(a)
+  }
+  render() {
+    return <div>Hello {this.props.name}</div>;
+  }
+}
+
+// 加载组件到 DOM 元素 mountNode
+render(<HelloMessage name="John" />, document.getElementById('root'));
